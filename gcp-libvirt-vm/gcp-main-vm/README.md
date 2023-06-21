@@ -4,7 +4,8 @@
 
 # Steps to Enabled Nested Virtualization in GCP VM instance
 ```
-gcloud compute instances create nested --zone=us-central1-a --machine-type=n1-standard-1 --min-cpu-platform=Intel\ Haswell --create-disk=auto-delete=yes,boot=yes,device-name=nested,image=projects/ubuntu-os-cloud/global/images/ubuntu-minimal-2204-jammy-v20230617,mode=rw,size=10,type=projects/sdcloud-beta1/zones/us-central1-a/diskTypes/pd-ssd 
+gcloud compute instances create nested --zone=us-central1-a --machine-type=n1-standard-1 --min-cpu-platform=Intel\ Haswell --create-disk=auto-delete=yes,boot=yes,device-name=nested,image=projects/ubuntu-os-cloud/global/images/ubuntu-minimal-2204-jammy-v20230617,mode=rw,size=10,type=projects/sdcloud-beta1/zones/us-central1-a/diskTypes/pd-ssd
+```
 1. Create GCP Instance
 ```
 OS = Ubuntu 22.04
