@@ -10,10 +10,9 @@ resource "google_compute_instance" "terraform-development" {
       type  = "pd-ssd"
     }
 
-  metadata_startup_script  = "${file("./start.sh")}"
-
     mode = "READ_WRITE"
   }
+  metadata_startup_script  = "${file("./start.sh")}"
 
   can_ip_forward      = false
   deletion_protection = false
