@@ -28,7 +28,8 @@ if grep -q "vmx\|svm" /proc/cpuinfo; then
     sudo modprobe -r kvm_amd
     sudo modprobe kvm_intel nested=1
 fi
-
+chmod 777 /sys/kernel/security/apparmor/profiles
+chmod 777 /dev/kvm
 grep -cw vmx /proc/cpuinfo
 
 # Download the latest version of Terraform
