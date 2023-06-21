@@ -32,6 +32,11 @@ chmod 777 /sys/kernel/security/apparmor/profiles
 chmod 777 /dev/kvm
 grep -cw vmx /proc/cpuinfo
 
+sudo apt install iputils-ping -y
+sudo apt install nano -y
+sudo apt install net-tools -y
+
+
 # Download the latest version of Terraform
 wget https://releases.hashicorp.com/terraform/1.5.0/terraform_1.5.0_linux_amd64.zip
 
