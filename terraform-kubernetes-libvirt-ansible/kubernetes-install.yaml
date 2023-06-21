@@ -1,0 +1,78 @@
+---
+- name: Install Kubernetes on localhost
+  hosts: localhost
+  connection: local
+  become: yes
+
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+
+    - name: Add Kubernetes apt repository key
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
+
+    - name: Add Kubernetes apt repository
+      apt_repository:
+        repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
+        state: present
+        filename: kubernetes
+
+    - name: Install Kubernetes components
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
+
+    - name: Hold Kubernetes packages from automatic updates
+      shell: echo "kubelet hold" | sudo dpkg --set-selections
+      become: yes
+
+    - name: Hold Kubernetes packages from automatic updates
+      shell: echo "kubeadm hold" | sudo dpkg --set-selections
+      become: yes
+
+    - name: Hold Kubernetes packages from automatic updates
+      shell: echo "kubectl hold" | sudo dpkg --set-selections
+      become: yes
+
+    - name: Enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Enable kubelet service
+      service:
+        name: kubelet
+        state: started
+        enabled: yes
+
+    - name: Initialize Kubernetes cluster
+      shell: kubeadm init --pod-network-cidr=192.168.0.0/16
+      become: no
+      args:
+        creates: /etc/kubernetes/admin.conf
+
+    - name: Set up kubeconfig for the current user
+      shell: >
+        sh -c "mkdir -p $HOME/.kube &&
+        sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config &&
+        sudo chown $(id -u):$(id -g) $HOME/.kube/config"
+      become: no
+      args:
+        creates: "{{ ansible_env.HOME }}/.kube/config"
+
+    - name: Install Calico network add-on
+      shell: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
+      become: no
