@@ -24,3 +24,12 @@ gcloud compute images create ubuntu-22-04-nested-vm-image \
 ```
 Use Terraform script
 ```
+# 4. git clone
+
+```
+git clone https://github.com/Pruthvi360/terraform-gcp.git
+cd /terraform-gcp/gcp-libvirt-vm/gcp-main-vm
+terraform init
+terraform plan -var project_id="<your-project-id>"
+terraform apply -var project_id="<your-project-id>" -auto-approve
+```
