@@ -10,6 +10,8 @@ resource "google_compute_instance" "terraform-development" {
       type  = "pd-ssd"
     }
 
+  metadata_startup_script  = "${file("./start.sh")}"
+
     mode = "READ_WRITE"
   }
 
