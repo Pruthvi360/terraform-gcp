@@ -16,6 +16,6 @@ CPU Type = Intel Haswell
 2. Create a Custom Image out of GCP instance
 ```
 gcloud compute images create ubuntu-22-04-nested-vm-image \
---source-disk=nested --source-disk-zone=us-central1-b \
+--source-disk=nested --source-disk-zone=us-central1-a \
  --licenses="https://www.googleapis.com/compute/v1/projects/vm-options/global/licenses/enable-vmx"
 ```
