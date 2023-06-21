@@ -33,3 +33,10 @@ terraform init
 terraform plan -var project_id="<your-project-id>"
 terraform apply -var project_id="<your-project-id>" -auto-approve
 ```
+
+# Check the VM creation
+
+```
+virsh list --all
+virsh net-dhcp-leases default
+```
